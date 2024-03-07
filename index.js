@@ -23,7 +23,7 @@ app.use('/api', userRoute)
 app.use('/api', postRoute)
 app.use('/api', interactionRoute)
 
-const PORT = process.env.DB_PORT || 5000
+const PORT = 5000
 app.listen(PORT, () => {
     console.log(`Server attivo alla porta ${PORT}`);
 })
