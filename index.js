@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
 const app = express()
@@ -7,6 +8,12 @@ const interactionRoute = require("./routes/interactions.route")
 
 
 app.use(cors())
+app.use(session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: true
+}));
+app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.get('/', (req,res) => {
     res.send("Welcome to Tongue")
