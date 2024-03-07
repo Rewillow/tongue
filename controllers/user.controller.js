@@ -11,7 +11,6 @@ const userController = {
         } catch(err) {
             return res.status(500).json({error:"Errore nella restituzione della lista utenti"})
         }
-        
     },
     // Function to create a new user
     userCreate: async(req,res) => {
