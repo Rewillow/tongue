@@ -9,6 +9,9 @@ const interactionRoute = require("./routes/interactions.route")
 
 app.use(cors())
 app.use(express.json())
+app.use('/', (req,res) => {
+    res.send("Welcome to Tongue")
+})
 app.use('/api', userRoute)
 app.use('/api', postRoute)
 app.use('/api', interactionRoute)
