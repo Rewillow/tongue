@@ -9,24 +9,14 @@ const interactionRoute = require("./routes/interactions.route")
 
 app.use(cors())
 app.use(express.json())
-app.use('/', (req,res) => {
+app.get('/', (req,res) => {
     res.send("Welcome to Tongue")
 })
 app.use('/api', userRoute)
 app.use('/api', postRoute)
 app.use('/api', interactionRoute)
 
-
 const PORT = 5000
-
 app.listen(PORT, () => {
     console.log(`Server attivo alla porta ${PORT}`);
 })
-
-
-// connectDb.authenticate()
-// .then(() => {
-//     console.log("Connessione riuscita");
-// }).catch((err) => {
-//     console.error(err);
-// }) 
