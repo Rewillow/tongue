@@ -4,7 +4,9 @@ const userController = {
     allUser:async(req,res) => {
         try {
             const resUser = await User.findAll()
-            if(!resUser)
+            if(!resUser) {
+                res.send("Nessun utente presente")
+            }
             return res.status(200).json(resUser)
         } catch(err) {
             return res.status(500).json({error:"Nessun utente presente"})
