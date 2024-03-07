@@ -1,6 +1,15 @@
 const User = require("../models/User")
 
 const userController = {
+    allUser:async(req,res) => {
+        try {
+            const resUser = await User.findAll()
+            return res.status(200).json(resUser)
+        } catch(err) {
+            return res.status(500).json({error:"Nessun utente presente"})
+        }
+        
+    },
     // Function to create a new user
     userCreate: async(req,res) => {
         const {nickname, age, city} = req.body // Questi i campi necessari da compilare
