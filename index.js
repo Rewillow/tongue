@@ -9,11 +9,6 @@ const interactionRoute = require("./routes/interactions.route")
 
 
 app.use(cors())
-// app.use(session({
-//     secret: process.env.JWT_SECRET,
-//     resave: false,
-//     saveUninitialized: true
-// }));
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.get('/', (req,res) => {
@@ -23,7 +18,7 @@ app.use('/api', userRoute)
 app.use('/api', postRoute)
 app.use('/api', interactionRoute)
 
-// const PORT = 5000
-// app.listen(PORT, () => {
-//     console.log(`Server attivo alla porta ${PORT}`);
-// })
+const PORT = 5000
+app.listen(PORT, () => {
+    console.log(`Server attivo alla porta ${PORT}`);
+})
