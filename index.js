@@ -12,9 +12,9 @@ app.use(express.json())
 app.get('/', (req,res) => {
     res.send("Welcome to Tongue")
 })
-app.use('/api', userRoute)
-app.use('/api', postRoute)
-app.use('/api', interactionRoute)
+// app.use('/api', userRoute)
+// app.use('/api', postRoute)
+// app.use('/api', interactionRoute)
 
 const PORT = 5000
 app.listen(PORT, () => {
