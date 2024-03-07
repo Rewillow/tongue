@@ -1,12 +1,9 @@
 const User = require("../models/User")
 
 const userController = {
-    allUser:async(req,res) => {
+    allUser: async(req,res) => {
         try {
             const resUser = await User.findAll()
-            if(!resUser) {
-                res.status(400).json("Nessun utente trovato")
-            }
             return res.status(200).json(resUser)
         } catch(err) {
             return res.status(500).json({error:"Errore nella restituzione della lista utenti"})
