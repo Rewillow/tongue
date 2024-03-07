@@ -1,2 +1,6 @@
 /.env
 /node_modules
+/database/db.js
+/database/interactions.js
+/database/post.js
+/database/user.js
