@@ -4,7 +4,10 @@ const userController = {
     allUser: async(req,res) => {
         try {
             const resUser = await User.findAll()
-            return res.status(200).json(resUser)
+            if(resUser.length === 0) {
+                return res.status(400).json({message:'Nessun utente trovato'})
+            }
+            return res.status(200).json({resUser})
         } catch(err) {
             return res.status(500).json({error:"Errore nella restituzione della lista utenti"})
         }
@@ -20,7 +23,6 @@ const userController = {
         const newUser = await User.create({nickname, age, city}) // Se la condizione non è vera viene creato un nuovo utente
         return res.status(200).json(newUser)
     } catch(err) {
-        console.error('Errore nella creazione', err);
         return res.status(500).json({ error: 'Errore nella creazione dell\'utente' });
     }
     },
@@ -30,13 +32,13 @@ const userController = {
     try {
         const existingId = await User.findOne({where: {id}})
         if(!existingId) {
-            return res.status(400).json({error: 'ID not found'})
+            return res.status(400).json({error: 'ID non trovato'})
         }
         const deleteUser = await User.destroy({where: {id}})
-        return res.status(200).json({message:'Removal completed', deleteUser})
+        return res.status(200).json({message:'Eliminazione completata', deleteUser})
     } catch(err) {
         console.error(err);
-        return res.status(500).json({error: 'Removal non completed', err})
+        return res.status(500).json({error: 'Errore nell\'eliminazione dell\'utente', err})
     }
     },
     // Change user params
@@ -46,13 +48,13 @@ const userController = {
         const {id} = req.params
         const existingId = await User.findOne({where: {id}})
         if(!existingId) {
-            return res.status(400).json({error: 'ID not found'})
+            return res.status(400).json({error: 'ID non trovato'})
         }
         const changeParams = await User.update({nickname,age,city}, {where: {id}})
-        return res.status(200).json({message: 'Change completed', changeParams})
+        return res.status(200).json({message: 'Modifica completata', changeParams})
     } catch(err) {
         console.error(err);
-        return res.status(500).json({error: 'Change not completed', err})
+        return res.status(500).json({error: 'Errore nella modifica dell\'utente', err})
     }
     }
 }
