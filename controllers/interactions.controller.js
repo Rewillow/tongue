@@ -22,11 +22,11 @@ const interactionsController = {
   deleteAllInteractions: async(req,res) => {
     const {id} = req.params
     try {
-      const existingId = await Interactions.findOne({where:{id}})
+      const existingId = await Interactions.findOne({where:{postId:id}})
       if(!existingId) {
         return res.status(400).json({message:"ID not found"})
       }
-      const deleteInteraction = await Interactions.destroy({where:{id}})
+      const deleteInteraction = await Interactions.destroy({where:{postId:id}})
       return res.status(200).json({message:"Interaction deleted", deleteInteraction})
     } catch(err) {
       return res.status(500).json({error:"Interaction not deleted", err})
@@ -36,14 +36,14 @@ const interactionsController = {
     deleteComment: async (req, res) => {
       const {id} = req.params;
       try {
-        const interaction = await Interactions.findOne({ where: { id } });
+        const interaction = await Interactions.findOne({ where: { postId:id } });
         if (!interaction) {
           return res.status(404).json({ message: 'Interaction not found' });
         }
         interaction.comment = null;
         await interaction.save();
         if(interaction.comment === null && interaction.like === false) {
-          const deleteId = await Interactions.destroy({where:{id}})
+          const deleteId = await Interactions.destroy({where:{postId:id}})
           return res.status(200).json({message: 'Delete Interaction', deleteId})
         }
         return res.status(200).json({ message: 'Comment removed from interaction' });
@@ -56,14 +56,14 @@ const interactionsController = {
     deleteLike: async (req, res) => {
       const {id} = req.params;
       try {
-        const interaction = await Interactions.findOne({ where: { id } });
+        const interaction = await Interactions.findOne({ where: { postId:id } });
         if (!interaction) {
           return res.status(404).json({ message: 'Interaction not found' });
         }
         interaction.like = false;
         await interaction.save();
         if(interaction.comment === null && interaction.like === false) {
-          const deleteId = await Interactions.destroy({where:{id}})
+          const deleteId = await Interactions.destroy({where:{postId:id}})
           return res.status(200).json({message: 'Delete Interaction', deleteId})
         }
         return res.status(200).json({ message: 'Like removed from interaction' });
@@ -77,7 +77,7 @@ const interactionsController = {
       const { like, comment, timetable } = req.body;
       try {
         const {id} = req.params;
-        const existingId = await Interactions.findOne({ where: {id}});
+        const existingId = await Interactions.findOne({ where: {postId:id}});
         if (!existingId) {
           return res.status(400).json({ message: 'ID not found'});
         }
@@ -86,7 +86,7 @@ const interactionsController = {
           const newTimetable = new Date(); // Assuming you want to store a Date object
           req.body.timetable = newTimetable;
         }
-        const changeParams = await Interactions.update(req.body, { where: { id } });
+        const changeParams = await Interactions.update(req.body, { where: { postId:id } });
         return res.status(200).json({ message: 'Change completed', changeParams });
       } catch (err) {
         return res.status(500).json({ error: 'Error on change params', err });

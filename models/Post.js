@@ -16,7 +16,7 @@ const Post = database.define('Post', {
         allowNull: false,
         defaultValue: Sequelize.fn('now'),
         get() {
-            return require('moment')(this.getDataValue('created_at')).format('DD-MM-YYYY');
+            return require('moment')(this.getDataValue('created_at')).format('YYYY-MM-DD');
         }
     }}, 
 {

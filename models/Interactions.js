@@ -17,7 +17,7 @@ const Interactions = database.define('Interactions', {
         allowNull: false,
         defaultValue: Sequelize.fn('now'),
         get() {
-            return require('moment')(this.getDataValue('timetable')).format('DD-MM-YYYY');
+            return require('moment')(this.getDataValue('timetable')).format('YYYY-MM-DD');
         }
     },
     postId: {
